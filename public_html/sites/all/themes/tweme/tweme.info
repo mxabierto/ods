@@ -1,0 +1,40 @@
+name = PNUD
+description = PNUD project Drupal/Bootstrap theme developed by Cartográfica
+core = 7.x
+base theme = bootstrap
+
+simplytest_dependencies[] = jquery_update
+
+settings[bootstrap_navbar_position] = 'fixed-top'
+settings[bootstrap_cdn] = 3.3.4
+
+stylesheets[all][] = common.less
+stylesheets[all][] = style.less
+
+scripts[] = tweme.js
+scripts[] = js/jquery.matchHeight-min.js
+
+regions[body_top] = Body top
+regions[page_top] = Page top
+regions[header] = Header
+regions[help] = Help
+regions[highlighted] = Highlighted
+regions[content_noncontainer] = Content (non-container)
+regions[content] = Content
+regions[sidebar_first] = Sidebar first
+regions[sidebar_second] = Sidebar second
+regions[section_button_left] = Section button left
+regions[section_button_right] = Section button right
+regions[blog] = Blog
+regions[share] = Share
+regions[bottom] = Bottom
+regions[footer] = Footer
+regions[page_bottom] = Page bottom
+regions[body_bottom] = Body bottom
+
+; Information added by Drupal.org packaging script on 2015-07-15
+version = "7.x-3.0-beta2"
+core = "7.x"
+project = "tweme"
+datestamp = "1436979540"
+
