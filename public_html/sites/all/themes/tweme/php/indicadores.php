@@ -1,3 +1,8 @@
+<div class="row">
+	<div class="col-xs-12">
+		Consulta datos de más de 100 indicadores correspondientes a los Objetivos de Desarrollo Sostenible.<br/>Primero selecciona un objetivo, y posteriormente elige un indicador:
+</div>
+</div>
 <?php
 
 include('h_objetivos.php');
@@ -15,15 +20,18 @@ foreach($metadata["results"] as $value) {
 	$indicadores_id[$value["Clave"]] = $value;
 }
 
-foreach($indicadores as $key => $obj) {
-	if (count($obj) < 1) unset($indicadores[$key]);
-}
-
+$i = 0;
 foreach($indicadores as $key => $objetivo) {
-	echo ('<div class="row indicador-header"><div class="col-xs-1"><img src="'.path_to_theme().'/assets/sdg_icons/'.$objetivo_icons[$key].'.png"/></div><div class="col-xs-11"><h4>'.$objetivo_nombres[$key].'</h4></div></div>');
+	echo ('<div class="row indicador-header"><div class="col-xs-1"><img src="'.path_to_theme().'/assets/sdg_icons/'.$objetivo_icons[$key].'.png"/></div><div class="col-xs-11"><h4><strong>'.($i+1).'.</strong> '.$objetivo_nombres[$key].'</h4></div></div>');
 	foreach($objetivo as $indicador) {
-		echo ( '<div class="row"><div class="col-xs-1"></div><div class="col-xs-11">'.$indicador["Nombre_del_indicador"]."</div></div>" );
+		echo ( '<div class="row indicador-page-row" onmousedown="visit_indicador(\''.$i.'\',\''.$indicador["Clave"].'\')" ><div class="col-xs-1"></div><div class="col-xs-11">'.$indicador["Nombre_del_indicador"]."</div></div>" );
 	}
+	$i++;
 }
 
 ?>
+<script type="text/javascript">
+	function visit_indicador(o,i) {
+		window.location.href='explora?o='+o+'&i='+i;
+	}
+</script>

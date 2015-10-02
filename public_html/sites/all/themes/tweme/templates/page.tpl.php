@@ -1,3 +1,7 @@
+<?php
+	drupal_add_css(path_to_theme().'/js/jquery.magnific-popup.css');
+	drupal_add_js(path_to_theme().'/js/jquery.magnific-popup.min.js');
+?>
 <script type="text/javascript">
 
 	var objetivos_iconos = {

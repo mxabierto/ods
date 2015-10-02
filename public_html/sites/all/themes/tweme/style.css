@@ -272,6 +272,22 @@ body.front .jumbotron-block p {
 	padding-left: 0;
 	padding-right: 0;
 }
+.ind-empty {
+	pointer-events: none;
+	opacity: 0.5;
+}
+.indicador-page-row {
+	cursor: pointer;
+}
+.indicador-page-row:hover {
+	color: #ccc;
+}
+.gm-caption {
+	padding: 10px;
+	font-size: 12px;
+	margin-top: 30px;
+	border: 1px solid #ccc;
+}
 .indicador-row .objetivo-name:hover {
 	background-color: rgba(160,160,160,0.4);
 }
@@ -281,6 +297,7 @@ body.front .jumbotron-block p {
 	margin-right: 10px;
 	line-height: 50px;
 }
+
 .indicador-row img {
 	width: 50px;
 	height: 50px;
@@ -292,11 +309,14 @@ body.front .jumbotron-block p {
 .listed-indicadores {
 	background-color: #fff;
 	padding: 20px;
-	font-size: 11px;
+	font-size: 12px;
 	margin-right: 0;
 	color: #000;
 }
-
+.listed-indicador .col-xs-11:hover {
+	background-color: #444;
+	color: #fff;
+}
 /*
  * Row with equal height columns
  * --------------------------------------------------
@@ -426,7 +446,7 @@ section.section-buttons {
 	font-size: 16px;
     line-height: 82px;
  }
-page.explora section.year-selector {
+page.explora .year-selector {
 	padding: 0;
 	background-color: #F0EEEE;
 	color: #9B9B9B;
@@ -436,6 +456,15 @@ page.explora section.year-selector {
 	float: left;
 	text-align: center;
 	font-weight: 600;
+	min-width: 75px;
+}
+.year-selector {
+	text-align: center;
+}
+.year-select {
+	margin: 0 auto;
+    display: inline-block;
+    overflow: hidden;
 }
 .year-selector .year:hover {
 	color: #444;
@@ -539,6 +568,9 @@ page.explora section {
 	max-height: 365px;
 	height: 365px;
 }
+table#legend-colors .tooltip {
+	display: inline-block;
+}
 path.highlighted{
 	fill:yellow !important;
 	stroke:'#444' !important
@@ -609,6 +641,21 @@ table#legend-colors tr td.legend-breaks {
 	background-color: #fff;
 	margin-bottom: 10px;
 }
+.page-inicio .btn-invert {
+	float: right;
+}
+.btn-invert {
+	text-transform: uppercase;
+	color: #fff;
+	background-color: #00CC99;
+	border-radius: 0;
+	font-weight: 700;
+}
+.btn-invert:hover {
+	color: #00cc99;
+	background-color: #fff;
+	border: 1px solid #00CC99;
+}
 .btn-outline:hover {
 	color: #fff;
 	background-color: #00CC99;
@@ -649,23 +696,45 @@ select {
 	color: #888;
 }
 /* Datos */
-table#datos {
+table.datos a {
+	margin-top: 5px;
+	color: #00cc99;
+}
+table.datos {
 	border-collapse: collapse;
 }
-table#datos td {
+table.datos td {
 	margin-bottom: 10px;
 }
-table#datos thead th {
+table.datos thead th {
 	padding-bottom: 10px;
 	padding: 10px 20px;
 }
 tr.datos-indicador td {
 	background-color: rgb(238,238,238);
 	padding: 20px;
+	vertical-align: top;
+}
+tr.datos-indicador td.nombre-ind {
+	font-weight: 600;
+}
+.fformat {
+	padding: 2px 4px;
+	background-color: #222;
+	color: #fff;
+	font-weight: 700;
 }
 tr.datos-indicador td:last-child {
 	background-color: rgb(215,215,215);
 	vertical-align: middle;
+}
+tr.metadatos .metadata-header {
+	font-weight: 700;
+}
+tr.metadatos td {
+	background-color: rgb(250,250,250);
+	padding: 20px;
+	font-size: 12px;
 }
 /* Line charts */
 body.page-node .c3 svg {
@@ -690,6 +759,9 @@ body.page-node .c3 svg g.c3-ygrids line {
 }
 #chart svg g.c3-lines path.c3-line:hover {
 	stroke: #00cc99;
+}
+#chart svg g.c3-lines path.c3-line {
+	fill-opacity: 0;
 }
 body.page-node .c3 svg .c3-axis path {
 	stroke: #fff;

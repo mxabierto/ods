@@ -7,6 +7,7 @@
 	drupal_add_js('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js','external');
 	drupal_add_js(path_to_theme().'/js/jquery.svg.min.js');
 	drupal_add_js(path_to_theme().'/js/jquery.svgdom.min.js');
+	drupal_add_js(path_to_theme().'/js/jquery.inline.min.js');
 	drupal_add_js(path_to_theme().'/js/leaflet-search.min.js');
 	drupal_add_js('https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js','external');
 	drupal_add_js('https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js','external');
@@ -87,7 +88,7 @@
 					</div>
 					<div class="form-group">
 						<label class="filter-header">DESAGREGACIÓN</label>
-						<select class="filter-group filter-geo">
+						<select id="filter-geo" class="filter-group filter-geo">
 							<option class="filter-item">Nacional</option>
 							<option class="filter-item">Estatal</option>
 							<option class="filter-item">Municipal</option>
@@ -98,6 +99,8 @@
 		</div>
 	</div>
 	<section class="year-selector">
+		<div class="year-select">
+		</div>
 	</section>
 	<?php include('section_stats.php'); ?>
 	<?php include('section_datatable.php'); ?>

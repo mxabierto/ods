@@ -1,4 +1,6 @@
-<p>La presente página es una iniciativa del Gobierno de la República, el Programa de las Naciones Unidas para el Desarrollo (PNUD) y la Agencia Mexicana de Cooperación Internacional para el Desarrollo (AMEXCID). Pone a disposición de la ciudadanía en general, académicos, funcionarios públicos y tomadores de decisiones más de 100 indicadores seleccionados desde un enfoque de inclusión social. Esta herramienta de consulta interactiva tiene como propósito impulsar una mejor comprensión de las brechas y desigualdades sociales existentes entre las diferentes regiones y grupos de personas en nuestro país, que detone nuevos estudios y análisis así como un diseño de políticas públicas para el desarrollo más focalizado y centrado en la persona. Asimismo, busca servir de plataforma piloto para el seguimiento de los Objetivos de Desarrollo Sostenible que entrarán en vigor a partir de 2016.</p>
+<div style="position: relative; bottom: 10px;" class="btn btn-invert ver-video"><a class="popup-youtube" href="http://www.youtube.com/watch?v=Cju-Y-WqBNk">Ver Video</a></div></div>
+
+<p>Esta herramienta es una iniciativa del Gobierno de la República, el Programa de las Naciones Unidas para el Desarrollo (PNUD) y la Agencia Mexicana de Cooperación Internacional para el Desarrollo (AMEXCID). Pone a disposición de la ciudadanía en general, académicos, funcionarios públicos y tomadores de decisiones más de 100 indicadores seleccionados desde un enfoque de inclusión social. Esta herramienta de consulta interactiva tiene como propósito impulsar una mejor comprensión de las brechas y desigualdades sociales existentes entre las diferentes regiones y grupos de personas en nuestro país, que detone nuevos estudios y análisis así como un diseño de políticas públicas para el desarrollo más focalizado y centrado en la persona. Asimismo, busca servir de plataforma piloto para el seguimiento de los Objetivos de Desarrollo Sostenible que entrarán en vigor a partir de 2016.</p>
 
 <p>Este proyecto surge a invitación del PNUD y nace en reconocimiento al trabajo realizado por México en materia de seguimiento de los Objetivos de Desarrollo del Milenio (ODM) y es una muestra más del compromiso que tiene nuestro país con la Agenda 2030 de Desarrollo Sostenible.</p>
  
@@ -17,3 +19,19 @@ Esta iniciativa propone y pone a prueba más de 100 indicadores bajo un enfoque 
 <p>Un desarrollo incluyente debe darse desde un enfoque de derechos para todos, la inclusión se refiere no sólo al reconocimiento legal de ciertos derechos sino al ejercicio efectivo de estos por toda persona y a la capacidad del Estado de garantizarlos, sin importar el origen o condición de las personas. El concepto de inclusión puede apuntar a todos los aspectos del desarrollo sostenible: socio-económico (educación-salud-empleo-vivienda), medio ambiente sano y una vida pacífica.<br/>
 Un desarrollo que no es incluyente no es sostenible en el tiempo ni puede llamarse propiamente desarrollo. Un crecimiento y un desarrollo excluyente fracturan la cohesión social, amplían brechas y desventajas entre poblaciones e impone mayores costes al desarrollo futuro. Sin inclusión social no habrá cohesión social duradera.</p>
 <p>México reafirma su compromiso como actor con responsabilidad global y asume el reto para el logro de los Objetivos de Desarrollo Sostenible (ODS). Con los ODS, una nueva generación de mexicanos tiene la oportunidad de trazar un desarrollo más incluyente y con mayor igualdad.</p>
+
+<script type='text/javascript'>
+(function ($) {
+	$(document).ready(function() {
+		$('.popup-youtube').magnificPopup({
+			disableOn: 640,
+			type: 'iframe',
+			mainClass: 'mfp-fade',
+			removalDelay: 160,
+			preloader: false,
+	
+			fixedContentPos: false
+		});
+	});
+}(jQuery));
+</script>
