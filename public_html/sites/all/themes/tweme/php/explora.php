@@ -23,7 +23,7 @@
 		<div class="container">
 			<div class="col-xs-12 col-sm-1 vcenter">Objetivo</div>
 			<div class="col-xs-12 col-sm-5">
-				<div class="objective-selector-caption">Selecciona objetivo</div>
+				<div class="objective-selector-caption">Selecciona un objetivo</div>
 				<select id="select-objetivo-a">
 					<option>6 Erradicar pobreza</option>
 				</select>

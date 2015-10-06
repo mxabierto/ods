@@ -42,11 +42,17 @@ foreach($metadata["results"] as $value) {
 			echo("</div>");
 			echo('<div class="jumbotron-block col-xs-6">');
 		}
-		if (count($objetivo) < 1) $empty_class = " ind-empty";
-		else $empty_class = "";
-		echo ('<div class="col-xs-12 noselect indicador-group'.$empty_class.'" value="'.$i.'"><div class="row indicador-row"><div class="col-xs-1"><img src="'.path_to_theme().'/assets/sdg_icons/'.$objetivo_icons[$key].'.png"/></div><div class="col-xs-11"><div class="objetivo-name"><strong>'.($i+1).'. </strong>'.$objetivo_nombres[$key].'</div></div></div><div style="display: none;" class="row listed-indicadores"><div class="listed-indicadores-title">INDICADORES</div>');
+		if (count($objetivo) < 1) {
+			$empty_class = " ind-empty";
+			$tt = ' data-toggle="tooltip" data-placement="right" title="Próximamente" ';
+		}
+		else {
+			$empty_class = "";
+			$tt = "";
+		}
+		echo ('<div class="col-xs-12 noselect indicador-group'.$empty_class.'" value="'.$i.'"'.$tt.'><div class="row indicador-row"><div class="col-xs-1"><img src="'.path_to_theme().'/assets/sdg_icons/'.$objetivo_icons[$key].'.png"/></div><div class="col-xs-11"><div class="objetivo-name"><strong>'.($i+1).'. </strong>'.$objetivo_nombres[$key].'</div></div></div><div style="display: none;" class="row listed-indicadores"><div class="listed-indicadores-title">INDICADORES</div>');
 		foreach($objetivo as $indicador) {
-			echo ( '<div onmousedown="visit_indicador(\''.$i.'\',\''.$indicador["Clave"].'\')" class="listed-indicador"><div class="col-xs-1"></div><div class="col-xs-11">'.$indicador["Nombre_del_indicador"]."</div></div>" );
+			echo ( '<div onmousedown="visit_indicador(\''.$i.'\',\''.$indicador["Clave"].'\')" class="listed-indicador"><div class="col-xs-12">'.$indicador["Nombre_del_indicador"]."</div></div>" );
 		}
 		echo ('</div></div>');
 		$i++;
@@ -62,15 +68,15 @@ foreach($metadata["results"] as $value) {
 			mainClass: 'mfp-fade',
 			removalDelay: 160,
 			preloader: false,
-	
 			fixedContentPos: false
 		});
+		$('[data-toggle="tooltip"]').tooltip(); 
 	});
 }(jQuery));
 </script>
 <script type="text/javascript">
 	(function ($) {
-		$(".indicador-row").mousedown(function() {
+		$(".indicador-group:not(.ind-empty) .indicador-row").mousedown(function() {
 			if ($(this).parents('.indicador-group').find(".listed-indicadores").is(":visible")) {
 				$(".listed-indicadores").slideUp();
 			}

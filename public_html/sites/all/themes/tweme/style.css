@@ -273,7 +273,6 @@ body.front .jumbotron-block p {
 	padding-right: 0;
 }
 .ind-empty {
-	pointer-events: none;
 	opacity: 0.5;
 }
 .indicador-page-row {
@@ -297,7 +296,9 @@ body.front .jumbotron-block p {
 	margin-right: 10px;
 	line-height: 50px;
 }
-
+.indicador-page-row .col-xs-11::before {
+	content: "• ";
+}
 .indicador-row img {
 	width: 50px;
 	height: 50px;
@@ -313,9 +314,12 @@ body.front .jumbotron-block p {
 	margin-right: 0;
 	color: #000;
 }
-.listed-indicador .col-xs-11:hover {
+.listed-indicador .col-xs-12:hover {
 	background-color: #444;
 	color: #fff;
+}
+.listed-indicador .col-xs-12::before {
+	content: "• ";
 }
 /*
  * Row with equal height columns
