@@ -219,7 +219,7 @@ $databases = array (
     array (
       'database' => 'pnud',
       'username' => 'postgres',
-      'password' => '',
+      'password' => 'postgres',
       'host' => 'localhost',
       'port' => '',
       'driver' => 'pgsql',

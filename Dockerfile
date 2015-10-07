@@ -2,7 +2,7 @@ FROM debian:wheezy
 ENV DEBIAN_FRONTEND noninteractive
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-# Install packages.
+# Get packages
 RUN apt-get update
 RUN apt-get install -y \
 	vim \
@@ -19,37 +19,34 @@ RUN apt-get install -y \
 	postgresql \
 	postgresql-contrib \
 	openssh-server \
-	wget \
-	supervisor
+	wget 
 RUN apt-get clean
 
-# Install Composer.
+# Composer
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
-# Setup PHP.
+# PHP
 RUN sed -i 's/display_errors = Off/display_errors = On/' /etc/php5/apache2/php.ini
 RUN sed -i 's/display_errors = Off/display_errors = On/' /etc/php5/cli/php.ini
 RUN sed -i 's/local   all             postgres                                peer/local   all             postgres                                trust/' /etc/postgresql/9.1/main/pg_hba.conf
 
-# Setup Apache.
-# In order to run our Simpletest tests, we need to make Apache
-# listen on the same port as the one we forwarded. Because we use
-# 8080 by default, we set it up for that port.
+# Apache
+# Listen port should be changed to forwarded port
 RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/sites-available/default
 RUN sed -i 's/\/var\/www/\/srv\/www\/ods\/public_html/' /etc/apache2/sites-available/default
 RUN echo "Listen 8080" >> /etc/apache2/ports.conf
 RUN sed -i 's/VirtualHost *:80/VirtualHost */' /etc/apache2/sites-available/default
 RUN a2enmod rewrite
 
-# Setup SSH.
+# SSH
 RUN echo 'root:root' | chpasswd
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN mkdir /var/run/sshd && chmod 0755 /var/run/sshd
 RUN mkdir -p /root/.ssh/ && touch /root/.ssh/authorized_keys
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
-# Install Drupal.
+# Drupal and PostgreSQL
 RUN mkdir -p /srv/www
 RUN cd /srv/www && \
 	git clone https://github.com/Cartografica/ods.git
@@ -60,6 +57,6 @@ RUN /etc/init.d/postgresql start && \
 	cd /srv/www/ods && \
 	createdb -U postgres -w pnud && \
 	psql -U postgres -w pnud < db/pnud.sql
+RUN sudo -u postgres psql -c "alter user postgres with password 'postgres';"
 
 EXPOSE 80 3306 22
-CMD exec supervisord -n
