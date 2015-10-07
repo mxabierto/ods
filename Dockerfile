@@ -20,7 +20,8 @@ RUN apt-get install -y \
 	postgresql \
 	postgresql-contrib \
 	openssh-server \
-	wget 
+	wget \
+	supervisor
 RUN apt-get clean
 
 # Composer
@@ -47,6 +48,11 @@ RUN mkdir /var/run/sshd && chmod 0755 /var/run/sshd
 RUN mkdir -p /root/.ssh/ && touch /root/.ssh/authorized_keys
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
+# Supervisor
+RUN echo -e '[program:apache2]\ncommand=/bin/bash -c "source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND"\nautorestart=true\n\n' >> /etc/supervisor/supervisord.conf
+RUN echo -e '[program:postgresql]\ncommand=/usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf\nuser=postgres\nautorestart=true\n\n' >> /etc/supervisor/supervisord.conf
+RUN echo -e '[program:sshd]\ncommand=/usr/sbin/sshd -D\n\n' >> /etc/supervisor/supervisord.conf
+
 # Drupal and PostgreSQL
 RUN mkdir -p /srv/www
 RUN cd /srv/www && \
@@ -61,3 +67,4 @@ RUN /etc/init.d/postgresql start && \
 	psql -U postgres -w -c "alter user postgres with password 'postgres';"
 
 EXPOSE 80 3306 22
+CMD exec supervisord -n
