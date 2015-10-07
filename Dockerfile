@@ -30,6 +30,7 @@ RUN mv composer.phar /usr/local/bin/composer
 # Setup PHP.
 RUN sed -i 's/display_errors = Off/display_errors = On/' /etc/php5/apache2/php.ini
 RUN sed -i 's/display_errors = Off/display_errors = On/' /etc/php5/cli/php.ini
+RUN sed -i 's/local   all             postgres                                peer/local   all             postgres                                trust/' /etc/postgresql/9.1/main/pg_hba.conf
 
 # Setup Apache.
 # In order to run our Simpletest tests, we need to make Apache
@@ -48,12 +49,6 @@ RUN mkdir /var/run/sshd && chmod 0755 /var/run/sshd
 RUN mkdir -p /root/.ssh/ && touch /root/.ssh/authorized_keys
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
-# Setup Supervisor.
-RUN echo -e '[program:apache2]\ncommand=/bin/bash -c "source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND"\nautorestart=true\n\n' >> /etc/supervisor/supervisord.conf
-RUN echo -e '[program:mysql]\ncommand=/usr/bin/pidproxy /var/run/mysqld/mysqld.pid /usr/sbin/mysqld\nautorestart=true\n\n' >> /etc/supervisor/supervisord.conf
-RUN echo -e '[program:sshd]\ncommand=/usr/sbin/sshd -D\n\n' >> /etc/supervisor/supervisord.conf
-RUN echo -e '[program:blackfire]\ncommand=/usr/local/bin/launch-blackfire\n\n' >> /etc/supervisor/supervisord.conf
-
 # Install Drupal.
 RUN mkdir -p /srv/www
 RUN cd /srv/www && \
@@ -61,10 +56,10 @@ RUN cd /srv/www && \
 RUN cp /srv/www/ods/public_html/sites/default/default.settings.php /srv/www/ods/public_html/sites/default/settings.php
 RUN chmod a+w /srv/www/ods/public_html/sites/default -R && \
 	chown -R www-data:www-data /srv/www/ods/public_html
-RUN /etc/init.d/mysql start && \
+RUN /etc/init.d/postgresql start && \
 	cd /srv/www/ods && \
-	createdb -U postgres -w drupal && \
-	psql -U postgres -w drupal < db/drupal.sql
+	createdb -U postgres -w pnud && \
+	psql -U postgres -w pnud < db/pnud.sql
 
 EXPOSE 80 3306 22
 CMD exec supervisord -n

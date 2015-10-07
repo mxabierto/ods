@@ -217,12 +217,12 @@ $databases = array (
   array (
     'default' => 
     array (
-      'database' => 'drupal',
-      'username' => 'root',
+      'database' => 'pnud',
+      'username' => 'postgres',
       'password' => '',
       'host' => 'localhost',
       'port' => '',
-      'driver' => 'mysql',
+      'driver' => 'pgsql',
       'prefix' => '',
     ),
   ),
