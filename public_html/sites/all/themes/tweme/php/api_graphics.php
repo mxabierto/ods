@@ -1026,11 +1026,11 @@ foreach($metadata_grupos["results"] as $value) {
 				
 				$("table#datos tbody tr").remove();
 				metadatos_a = metadata_groupedbyid[$("select#select-indicador-a option:selected").val()];
-				$("table#datos tbody").append("<tr class='indicador-a datos-indicador'><td class='nombre-ind'>"+metadatos_a["Nombre_del_indicador"]+"</td><td>"+metadatos_a["Dependencia"]+"</td><td>N/A</td><td><span class='fformat'>CSV</span></td><td><center><a href='"+metadatos_a["URL_indicador"]+"'><img width=35 height=36 src='<?php echo path_to_theme().'/assets/icon-circle-arrow-right-gray.png'; ?>'/></a></center></td></tr><tr class='indicador-a metadatos'><td><div class='metadata-header'>Descripción</div><div>"+metadatos_a["Descripcion_del_indicador"]+"</div></td><td><div class='metadata-header'>Desagregación</div><div>"+metadatos_a["Cobertura"]+"</div></td><td><div class='metadata-header'>Desagregación temporal</div><div>"+metadatos_a["Periodicidad"]+"</div></td><td><div class='metadata-header'>Años</div><div>"+metadatos_a["RangoTiempo"]+"</div><a class='masinf' href='"+metadatos_a["URL_metadatos"]+"'>MÁS INFORMACIÓN</a></td><td></td></tr>");
+				$("table#datos tbody").append("<tr class='indicador-a datos-indicador'><td class='nombre-ind'>"+metadatos_a["Nombre_del_indicador"]+"</td><td>"+metadatos_a["Dependencia"]+"</td><td>N/A</td><td><span class='fformat'>CSV</span></td><td style='min-width:80px;'><center><a href='"+metadatos_a["URL_indicador"]+"'><img width=35 height=36 src='<?php echo path_to_theme().'/assets/icon-circle-arrow-right-gray.png'; ?>'/></a></center></td></tr><tr class='indicador-a metadatos'><td><div class='metadata-header'>Descripción</div><div>"+metadatos_a["Descripcion_del_indicador"]+"</div></td><td><div class='metadata-header'>Desagregación</div><div>"+metadatos_a["Cobertura"]+"</div></td><td><div class='metadata-header'>Desagregación temporal</div><div>"+metadatos_a["Periodicidad"]+"</div></td><td><div class='metadata-header'>Años</div><div>"+metadatos_a["RangoTiempo"]+"</div><a class='masinf' href='"+metadatos_a["URL_metadatos"]+"'>MÁS INFORMACIÓN</a></td><td></td></tr>");
 				<?php if ($page == "compara"): ?>
 					$("table#datos-b tbody tr").remove();
 					metadatos_b = metadata_groupedbyid[$("select#select-indicador-b option:selected").val()];
-					$("table#datos-b tbody").append("<tr class='datos-indicador'><td class='nombre-ind'>"+metadatos_b["Nombre_del_indicador"]+"</td><td>"+metadatos_b["Dependencia"]+"</td><td>N/A</td><td><span class='fformat'>CSV</span></td><td><center><a href='"+metadatos_b["URL_indicador"]+"'><img width=35 height=36 src='<?php echo path_to_theme().'/assets/icon-circle-arrow-right-gray.png'; ?>'/></a></center></td></tr><tr class='indicador-a metadatos'><td><div class='metadata-header'>Descripción</div><div>"+metadatos_b["Descripcion_del_indicador"]+"</div></td><td><div class='metadata-header'>Desagregación</div><div>"+metadatos_b["Cobertura"]+"</div></td><td><div class='metadata-header'>Desagregación temporal</div><div>"+metadatos_b["Periodicidad"]+"</div></td><td><div class='metadata-header'>Años</div><div>"+metadatos_b["RangoTiempo"]+"</div><a class='masinf' href='"+metadatos_b["URL_metadatos="]+"'>MÁS INFORMACIÓN</a></td><td></td></tr>");
+					$("table#datos-b tbody").append("<tr class='datos-indicador'><td class='nombre-ind'>"+metadatos_b["Nombre_del_indicador"]+"</td><td>"+metadatos_b["Dependencia"]+"</td><td>N/A</td><td><span class='fformat'>CSV</span></td><td style='min-width:80px;'><center><a href='"+metadatos_b["URL_indicador"]+"'><img width=35 height=36 src='<?php echo path_to_theme().'/assets/icon-circle-arrow-right-gray.png'; ?>'/></a></center></td></tr><tr class='indicador-a metadatos'><td><div class='metadata-header'>Descripción</div><div>"+metadatos_b["Descripcion_del_indicador"]+"</div></td><td><div class='metadata-header'>Desagregación</div><div>"+metadatos_b["Cobertura"]+"</div></td><td><div class='metadata-header'>Desagregación temporal</div><div>"+metadatos_b["Periodicidad"]+"</div></td><td><div class='metadata-header'>Años</div><div>"+metadatos_b["RangoTiempo"]+"</div><a class='masinf' href='"+metadatos_b["URL_metadatos"]+"'>MÁS INFORMACIÓN</a></td><td></td></tr>");
 				<?php endif; ?>
 			<?php if ($page == "compara"): ?>
 				});
@@ -1048,7 +1048,7 @@ foreach($metadata_grupos["results"] as $value) {
 					$('select#select-objetivo-a option:nth-child('+(parseInt(o_id)+1)+')').attr('selected', 'selected');
 				}
 				else {
-					$('select#select-objetivo-a option:nth-child(3)').attr('selected', 'selected');
+					$('select#select-objetivo-a option:nth-child(1)').attr('selected', 'selected');
 				}
 			}
 			$.each(metadata_grouped[$("select#select-objetivo-a option:selected").val()], function(key, indicador) {
@@ -1120,7 +1120,7 @@ foreach($metadata_grupos["results"] as $value) {
 				<?php endif; ?>
 			});
 			if (firstrun == true) {
-				$('select#select-objetivo-a option[value="'+ 'Garantizar una vida sana y promover el bienestar para todos en todas las edades' +'"]').attr('selected', 'selected');
+				$('select#select-objetivo-a option[value="Poner fin a la pobreza en todas sus formas en todo el mundo"]').attr('selected', 'selected');
 			}
 			else {
 				if ($("select#select-objetivo-a option[value='"+current_obj_a+"']").length > 0)
@@ -1144,7 +1144,7 @@ foreach($metadata_grupos["results"] as $value) {
 					populate_indicador_b();
 				});
 				if (firstrun == true) {
-					$('select#select-objetivo-b option[value="'+ 'Poner fin a la pobreza en todas sus formas en todo el mundo' +'"]').attr('selected', 'selected');
+					$("select#select-objetivo-b option:nth-child(2)").attr('selected','selected'); 
 				}
 				else {
 					if ($("select#select-objetivo-b option[value='"+current_obj_b+"']").length > 0)

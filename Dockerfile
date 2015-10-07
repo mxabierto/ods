@@ -11,13 +11,13 @@ RUN apt-get install -y \
 	php-apc \
 	php5-fpm \
 	php5-cli \
-	php5-mysql \
+	php5-pgsql \
 	php5-gd \
 	php5-curl \
 	libapache2-mod-php5 \
 	curl \
-	mysql-server \
-	mysql-client \
+	postgresql \
+	postgresql-contrib \
 	openssh-server \
 	wget \
 	supervisor
@@ -41,9 +41,6 @@ RUN echo "Listen 8080" >> /etc/apache2/ports.conf
 RUN sed -i 's/VirtualHost *:80/VirtualHost */' /etc/apache2/sites-available/default
 RUN a2enmod rewrite
 
-# Setup MySQL, bind on all addresses.
-RUN sed -i -e 's/^bind-address\s*=\s*127.0.0.1/#bind-address = 127.0.0.1/' /etc/mysql/my.cnf
-
 # Setup SSH.
 RUN echo 'root:root' | chpasswd
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -58,15 +55,16 @@ RUN echo -e '[program:sshd]\ncommand=/usr/sbin/sshd -D\n\n' >> /etc/supervisor/s
 RUN echo -e '[program:blackfire]\ncommand=/usr/local/bin/launch-blackfire\n\n' >> /etc/supervisor/supervisord.conf
 
 # Install Drupal.
-RUN mkdir -p /srv/www/ods
-RUN cd /srv/www/ods && \
+RUN mkdir -p /srv/www
+RUN cd /srv/www && \
 	git clone https://github.com/Cartografica/ods.git
+RUN cp /srv/www/ods/public_html/sites/default/default.settings.php /srv/www/ods/public_html/sites/default/settings.php
 RUN chmod a+w /srv/www/ods/public_html/sites/default -R && \
 	chown -R www-data:www-data /srv/www/ods/public_html
 RUN /etc/init.d/mysql start && \
 	cd /srv/www/ods && \
-	mysql -u root -e "create database drupal"; && \
-	mysql -u root drupal < db/drupal.sql
+	createdb -U postgres -w drupal && \
+	psql -U postgres -w drupal < db/drupal.sql
 
 EXPOSE 80 3306 22
 CMD exec supervisord -n
