@@ -5,6 +5,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # Get packages
 RUN apt-get update
 RUN apt-get install -y \
+    sudo \
 	vim \
 	git \
 	apache2 \
@@ -56,7 +57,7 @@ RUN chmod a+w /srv/www/ods/public_html/sites/default -R && \
 RUN /etc/init.d/postgresql start && \
 	cd /srv/www/ods && \
 	createdb -U postgres -w pnud && \
-	psql -U postgres -w pnud < db/pnud.sql
-RUN sudo -u postgres psql -c "alter user postgres with password 'postgres';"
+	psql -U postgres -w pnud < db/pnud.sql && \
+	psql -U postgres -w -c "alter user postgres with password 'postgres';"
 
 EXPOSE 80 3306 22
