@@ -54,7 +54,7 @@ p:last-child {
   opacity: 0.5;
 }
 body.page-node .header .jumbotron {
-  padding-top: 60px;
+  padding-top: 20px;
   padding-bottom: 20px;
   background: #00CC99;
   background-size: cover;
@@ -72,7 +72,7 @@ body.page-node .header .jumbotron {
 	font-size: 16px;	
 }
 body.front .header .jumbotron {
-  padding: 6rem 0;
+  padding: 2rem 0;
 }
 body.page-node-5 h4 {
 	margin-top: 40px;
@@ -191,7 +191,7 @@ body.page-node-5 h4 {
 /* PNUD customizations */
 video#bgvid { 
     position: absolute;
-    top: 94px;
+    top: 60px;
     left: 50%;
     min-width: 100%;
     min-height: 100%;
@@ -208,6 +208,20 @@ body.front section#block-block-1 {
 body.front .jumbotron {
 	background: #00cc99;
 	background-size: 100% auto;
+}
+@media screen and (max-width: 500px) {
+	body.front .header .jumbotron {
+    	padding: 5rem 0;
+	}
+	.header .jumbotron ul.navbar-nav li a {
+		font-size: 11px;
+	}
+	
+}
+@media screen and (max-width: 800px) {
+	.ver-video {
+		margin-top: 20px !important;
+	}
 }
 body.front .header {
 	border-bottom: none;

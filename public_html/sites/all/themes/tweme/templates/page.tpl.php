@@ -1,6 +1,19 @@
 <?php
+	require(path_to_theme().'/php/simple_html_dom.php');
 	drupal_add_css(path_to_theme().'/js/jquery.magnific-popup.css');
 	drupal_add_js(path_to_theme().'/js/jquery.magnific-popup.min.js');
+	
+	function get_data($url) {
+		$ch = curl_init();
+		$timeout = 5;
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+		$data = curl_exec($ch);
+		curl_close($ch);
+		return $data;
+	}
+	
 ?>
 <script type="text/javascript">
 
@@ -20,69 +33,13 @@
 		
 </script>
 <?php print render($page['body_top']) ?>
-<div class="site-header">
-<header class="site-header-bottom" role="banner" aria-label="Encabezado del sitio">
-    <div class="container">
-      <div class="row">
-        <div class="col col-xs-12">
-          <div class="col-inner">
-            <a class="site-brand" href="http://datos.gob.mx/" title="Ir a la página de inicio de DATOS.GOB.MX">
-              <img src="http://datos.gob.mx/assets/svg/logo-dgm-white.svg" alt="DATOS.GOB.MX" role="presentation">
-            </a>
-            <div class="nav-burguer" onmousedown='toggle_burguer()' aria-hidden="true"><span></span></div>
-            <script type="text/javascript">
-	            function toggle_burguer() {
-		            (function ($) {
-	            	$("ul.site-navigation").slideToggle();
-	            	}(jQuery));
-				}
-	        </script>
-            <ul class="site-navigation" aria-label="Navegación principal" role="navigation">
-              <li>
-                <a class="page-link" href="http://datos.gob.mx/catalogo/" title="Ir al conjunto de datos" aria-label="Ir al catalogo de datos">Datos</a>
-              </li>
-              <li>
-                <a class="page-link" href="http://datos.gob.mx/guia/" title="Ir a la guía de datos" aria-label="Ir a la guía de datos">Guía</a>
-              </li>
-              
-              
-                
-                  <li>
-                    <a class="page-link" href="http://datos.gob.mx/historias/" aria-label="Conoce las historias con Datos">Historias</a>
-                  </li>
-                
-              
-                
-                  <li>
-                    <a class="page-link" href="http://datos.gob.mx/apps/" aria-label="">Apps</a>
-                  </li>
-                
-              
-                
-                  <li>
-                    <a class="page-link" href="http://datos.gob.mx/herramientas/" aria-label="">Herramientas</a>
-                  </li>
-                
-              
-                
-                  <li>
-                    <a class="page-link" href="http://datos.gob.mx/avances/" aria-label="">Avances</a>
-                  </li>
-                
-              
-                
-                  <li>
-                    <a class="page-link" href="http://datos.gob.mx/acerca/" aria-label="Conoce más sobre este sitio">Acerca</a>
-                  </li>
-                
-              
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-</div>
+<?php 
+	$html = file_get_html('https://raw.githubusercontent.com/mxabierto/dgm-navbar/master/dgm-navbar.html');
+	foreach($html->find('dom-module') as $element)
+		$element = str_replace(array("<template>","</template>","@import url('http://fonts.googleapis.com/css?family=Open+Sans:200+400');",'<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>','font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;',"font-family:sans-serif;"), "", $element);
+		$element = str_replace(array(":host"), "header#dgm-navbar", $element);
+    	echo str_replace("dom-module", "header", $element);
+?>
 <header class="header">
   <div class="jumbotron">
 	<?php if (drupal_is_front_page()): ?>
@@ -97,12 +54,12 @@
       	<?php print render($primary_nav) ?>
       </div>
       <?php if (current_path() == "node/1"): ?>
-      <div class="col-xs-12 col-xs-6 page-caption">
+      <div class="col-xs-12 col-sm-6 page-caption">
 	      Esta sección permite visualizar los indicadores de los cuales se dispone información para 11 de los 17 objetivos de la Agenda 2030 para el Desarrollo Sostenible. Igualmente ofrece la posibilidad de filtrar la información por tipo de desagregación y unidades territoriales menores, en el caso de que ésta se encuentre disponible, y exportarla para su manipulación al igual que los materiales gráficos que se generen por el usuario.
       </div>
       <?php endif; ?>
       <?php if (current_path() == "node/8"): ?>
-      <div class="col-xs-12 col-xs-6 page-caption">
+      <div class="col-xs-12 col-sm-6 page-caption">
 	  	Esta sección permite llevar a cabo el cruce de dos indicadores seleccionados por el usuario, a fin de que pueda analizar de manera sencilla y visual la correlación existente entre dos variables. Igualmente se puede llevar a cabo un seguimiento del comportamiento de los dos indicadores seleccionados en el tiempo por medio de un gráfico y exportar la información, mapas y gráficos para su uso.</div>
       <?php endif; ?>
       <?php print render($title_suffix) ?>
@@ -181,181 +138,12 @@
 </section>
 <?php endif ?>
 
-<footer class="site-footer" role="contentinfo" aria-label="Pie de página del sitio">
-  <div class="container">
-    <div class="col-xs-12">
-      <div class="col col-xs-12 col-sm-3">
-        <div class="col-inner">
-          <div class="footer-section">
-            <ul class="open-knowledge-list" aria-label="Enlaces legales" role="navigation"> 
-              <li class="footer-libre-">
-                <a href="/libreusomx" title="Libre Uso MX">
-                  <i class="i libre-uso-white"></i>
-                </a>
-              </li>
-              <li>
-                <a href="http://opendefinition.org/" target="_blank">
-                  <img alt="Este material es de Conocimiento Abierto" src="http://assets.okfn.org/images/ok_buttons/ok_80x15_blue.png" style="margin-top: 5px;">
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/mxabierto/dgm" title="Repositorio GitHub" target="_blank">
-                  <img src="http://datos.gob.mx/assets/svg/icon-octocat.svg" alt="Github">
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-3">
-        <div class="col-inner">
-          <div class="footer-section">
-            <a href="http://datos.gob.mx/catalogo" class="footer-section-title">Datos</a>
-            <ul class="section-links-list">
-              <li><a href="http://datos.gob.mx/acerca/">Acerca de</a></li>
-              <li><a href="http://adela.datos.gob.mx/">ADELA</a></li>
-              <li><a href="http://datos.gob.mx/guia">Guía de implementación</a></li>
-              <li>
-                <a class="page-link" href="http://datos.gob.mx/terminos-y-condiciones">Términos y condiciones</a>
-              </li>
-              <li>
-                <a class="page-link" href="http://datos.gob.mx/privacidad">Aviso de Privacidad</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col col-xs-12 col-sm-2">
-        <div class="col-inner">
-          
-          <div class="footer-section">
-            <a href="http://datos.gob.mx/historias/" class="footer-section-title">Historias</a>
-            <ul class="section-links-list">
-              
-                
-              
-                
-                <li>
-                  <a href="http://datos.gob.mx/historias/salud/" aria-hidden="true" tabindex="-1">Salud</a>  
-                </li>
-                
-              
-                
-                <li>
-                  <a href="http://datos.gob.mx/historias/geografia/" aria-hidden="true" tabindex="-1">Geografia</a>  
-                </li>
-                
-              
-                
-                <li>
-                  <a href="http://datos.gob.mx/historias/seguridad/" aria-hidden="true" tabindex="-1">Seguridad</a>  
-                </li>
-                
-              
-                
-                <li>
-                  <a href="http://datos.gob.mx/historias/medio-ambiente/" aria-hidden="true" tabindex="-1">Ambiente</a>  
-                </li>
-                
-              
-                
-                <li>
-                  <a href="http://datos.gob.mx/historias/educacion/" aria-hidden="true" tabindex="-1">Educación</a>  
-                </li>
-                
-              
-                
-                <li>
-                  <a href="http://datos.gob.mx/historias/economia/" aria-hidden="true" tabindex="-1">Economia</a>  
-                </li>
-                
-              
-                
-                <li>
-                  <a href="http://datos.gob.mx/historias/otras/" aria-hidden="true" tabindex="-1">Otras</a>  
-                </li>
-                
-                
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col col-xs-12 col-sm-2">
-        <div class="col-inner">
-          
-          <div class="footer-section">
-            <a href="http://datos.gob.mx/apps/" class="footer-section-title">Apps</a>
-            <ul class="section-links-list">
-              
-                
-              
-                
-                <li>
-                  <a href="http://datos.gob.mx/apps/movil/" aria-hidden="true" tabindex="-1">Movil</a>  
-                </li>
-                
-              
-                
-                <li>
-                  <a href="http://datos.gob.mx/apps/web/" aria-hidden="true" tabindex="-1">Web</a>  
-                </li>
-                
-                
-            </ul>
-          </div>
-          <div class="footer-section">
-            <a href="http://datos.gob.mx/herramientas/" class="footer-section-title">Herramientas</a>
-          </div>
-          <div class="footer-section">
-            <a href="http://foro.datos.gob.mx/" class="footer-section-title" target="_blank">Foro</a>
-          </div>
-        </div>
-      </div>
-      <div class="col col-xs-12 col-sm-2">
-        <div class="col-inner">
-          <div class="footer-section">
-            <a href="http://datos.gob.mx/avances/" class="footer-section-title">Avances</a>
-            
-            <ul class="section-links-list">
-              
-                
-              
-                
-                  <li>
-                    <a href="http://datos.gob.mx/avances/eventos/" tabindex="-1">Eventos</a>  
-                  </li>
-                
-              
-                
-                  <li>
-                    <a href="http://datos.gob.mx/avances/noticias/" tabindex="-1">Noticias</a>  
-                  </li>
-                
-              
-                
-                  <li>
-                    <a href="http://datos.gob.mx/avances/politica/" tabindex="-1">Política</a>  
-                  </li>
-                
-              
-                
-                  <li>
-                    <a href="http://datos.gob.mx/avances/consejo-consultivo/" tabindex="-1">Consejo Consultivo</a>  
-                  </li>
-                
-              
-                
-                  <li>
-                    <a href="http://datos.gob.mx/avances/redmxabierto/" tabindex="-1">Red México Abierto</a>  
-                  </li>
-                
-              
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
+<?php 
+	$html = file_get_html('https://raw.githubusercontent.com/mxabierto/dgm-footer/master/dgm-footer.html');
+	foreach($html->find('dom-module') as $element)
+		$element = str_replace(array("<template>","</template>","font-family:sans-serif;",'font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;',"@import url('http://fonts.googleapis.com/css?family=Open+Sans:200+400');"), "", $element);
+		$element = str_replace(array(":host"), "footer", $element);
+    	echo str_replace("dom-module", "footer", $element);
+?>
 
 <?php print render($page['body_bottom']) ?>

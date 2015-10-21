@@ -35,12 +35,12 @@ foreach($metadata["results"] as $value) {
 	</p>
 </div>
 <?php
-	echo('<div class="jumbotron-block col-xs-6">');
+	echo('<div class="jumbotron-block col-sm-6 col-xs-12">');
 	$i = 0;
 	foreach($indicadores as $key => $objetivo) {
 		if ($i == 9) {
 			echo("</div>");
-			echo('<div class="jumbotron-block col-xs-6">');
+			echo('<div class="jumbotron-block col-sm-6 col-xs-12">');
 		}
 		if (count($objetivo) < 1) {
 			$empty_class = " ind-empty";
