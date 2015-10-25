@@ -1,2 +1,2 @@
 # Ignore configuration files that may contain sensitive information.
-public_html/sites/default/settings.php
+# public_html/sites/default/settings.php
